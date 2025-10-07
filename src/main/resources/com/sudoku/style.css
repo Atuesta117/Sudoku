@@ -1,0 +1,7 @@
+.text-field {
+    -fx-font-size: 32px;
+    -fx-font-smoothing-type: gray;
+    -fx-text-fill: #dcdcdc;
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+}
