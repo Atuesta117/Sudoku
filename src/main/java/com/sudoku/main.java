@@ -15,16 +15,8 @@ public class main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws    Exception {
-        Board board = new Board();
-        board.initializeSections();
-        board.setNodeValue(1.0f,1.2f, "1");
-        board.setNodeValue(1.0f,1.5f, "2");
-        board.setNodeValue(3.0f,3.2f, "6");
-        board.setNodeValue(1.0f,1.3f, "3");
-        board.setNodeValue(1.0f,1.1f, "4");
-        board.setNodeValue(2.0f,2.3f, "5");
+        GameWindow.getInstance().showInstance();
 
-        System.out.println(board.validateInput(1.0f, 1.5f));
 
 
 
