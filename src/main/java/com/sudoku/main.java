@@ -26,6 +26,9 @@ public class main extends Application {
 
         System.out.println(board.validateInput(1.0f, 1.5f));
 
+        //Add this line to show the window
+        GameWindow.getInstance().show();
+
 
 
     }
