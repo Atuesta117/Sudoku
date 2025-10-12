@@ -5,3 +5,67 @@
     -fx-background-color: transparent;
     -fx-alignment: center;
 }
+
+/* ===== ESTILO PARA EL TÍTULO "BLASDOKU" ===== */
+.title-label {
+    -fx-font-family: "Serif", "Georgia", "Times New Roman";
+    -fx-font-size: 90px;
+    -fx-font-weight: bold;
+    -fx-text-fill: linear-gradient(to bottom, #FFD700 0%, #DAA520 50%, #B8860B 100%);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 15, 0.5, 0, 5);
+}
+
+/* ===== ESTILOS BASE PARA LOS BOTONES DEL MENÚ ===== */
+.menu-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFFFF0; /* Blanco hueso/marfil */
+    -fx-font-family: "Serif", "Georgia", "Times New Roman";
+    -fx-font-size: 42px;
+    -fx-font-weight: normal;
+    -fx-padding: 5px 10px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 8, 0.3, 0, 3);
+    -fx-content-display: center;
+}
+
+/* ===== EFECTO HOVER (cuando pasas el mouse encima) ===== */
+.menu-button:hover {
+    -fx-text-fill: #FFD700; /* Dorado al pasar el mouse */
+    -fx-effect: dropshadow(gaussian, rgba(255, 215, 0, 0.8), 15, 0.7, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* ===== EFECTO PRESSED (cuando haces click) ===== */
+.menu-button:pressed {
+    -fx-text-fill: #DAA520;
+    -fx-translate-y: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.9), 5, 0.5, 0, 2);
+}
+
+/* ===== EFECTO FOCUS (cuando está seleccionado) ===== */
+.menu-button:focused {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+/* ===== ANIMACIÓN SUAVE PARA LAS TRANSICIONES ===== */
+.menu-button {
+    -fx-transition: all 0.3s ease;
+}
+
+/* ===== ESTILOS ESPECÍFICOS PARA CADA BOTÓN (Opcional) ===== */
+#playButton:hover {
+    -fx-text-fill: #90EE90; /* Verde claro para Play */
+}
+
+#exitButton:hover {
+    -fx-text-fill: #FF6B6B; /* Rojo suave para Exit */
+}
+
+#optionsButton:hover {
+    -fx-text-fill: #87CEEB; /* Azul suave para Options */
+}

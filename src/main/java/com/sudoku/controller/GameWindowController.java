@@ -8,6 +8,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import org.w3c.dom.ls.LSOutput;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
+
 public class GameWindowController {
     Board board = new Board();
     @FXML
