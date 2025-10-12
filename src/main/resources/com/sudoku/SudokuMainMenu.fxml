@@ -5,22 +5,33 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="606.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sudoku.controller.SudokuMainMenuController">
-   <children>
-      <ImageView fitHeight="417.0" fitWidth="707.0" layoutX="-82.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../../../menu2.png" />
-         </image>
-      </ImageView>
-      <Label layoutY="33.0" prefHeight="98.0" prefWidth="385.0" styleClass="title-label" text="Blasdoku">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Label>
-      <Button fx:id="playButton" layoutX="478.0" layoutY="259.0" mnemonicParsing="false" styleClass="menu-button" text="Play" />
-      <Button fx:id="exitButton" layoutX="481.0" layoutY="338.0" lineSpacing="15.0" mnemonicParsing="false" styleClass="menu-button" text="Exit" />
-      <Button fx:id="optionsButton" layoutX="450.0" layoutY="298.0" mnemonicParsing="false" styleClass="menu-button" text="Options" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="1259.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sudoku.controller.SudokuMainMenuController">
+    <children>
+        <!-- Imagen de fondo -->
+        <ImageView fitHeight="713.0" fitWidth="1259.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="false">
+            <image>
+                <Image url="@menu2.png" />
+            </image>
+        </ImageView>
+
+        <!-- Título "Blasdoku" -->
+        <Label layoutX="135.0" layoutY="135.0" prefWidth="500.0" styleClass="title-label" text="Blasdoku" />
+
+        <!-- Botones del menú -->
+        <Button fx:id="playButton" onAction="#handlePlayButton"
+                layoutX="930.0" layoutY="510.0"
+                prefWidth="150.0" prefHeight="45.0"
+                mnemonicParsing="false" styleClass="menu-button" text="Play" />
+
+        <Button fx:id="optionsButton" onAction="#handleOptionsButton"
+                layoutX="915.0" layoutY="560.0"
+                prefWidth="190.0" prefHeight="45.0"
+                mnemonicParsing="false" styleClass="menu-button" text="Options" />
+
+        <Button fx:id="exitButton" onAction="#handleExitButton"
+                layoutX="930.0" layoutY="615.0"
+                prefWidth="150.0" prefHeight="45.0"
+                mnemonicParsing="false" styleClass="menu-button" text="Exit" />
+    </children>
 </AnchorPane>

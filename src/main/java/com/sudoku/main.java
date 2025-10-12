@@ -2,7 +2,7 @@ package com.sudoku;
 
 import com.sudoku.model.Board;
 import com.sudoku.view.GameWindow;
-import com.sudoku.view.SudokuWelcomeStage;
+import com.sudoku.view.SudokuMainMenu;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -24,11 +24,10 @@ public class main extends Application {
         board.setNodeValue(1.0f,1.1f, "4");
         board.setNodeValue(2.0f,2.3f, "5");
 
-        System.out.println(board.validateInput(1.0f, 1.5f));
+        //System.out.println(board.validateInput(1.0f, 1.5f));
 
-        //Add this line to show the window
-        GameWindow.getInstance().show();
-
+        //Here the first window created is the main menu
+        SudokuMainMenu.getInstance().show();
 
 
     }
