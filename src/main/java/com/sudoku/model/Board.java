@@ -40,19 +40,22 @@ public class Board{
             for(int j=0; j < 6; j++) {
                 setNode(idSectionsBoard.get(i), idBoxesBoard.get(j));
             }
-
             int auxiliarCounter = 0;
-            while(auxiliarCounter != 2){
+            List<Float> usedChildren = new ArrayList<>();
+
+            while (auxiliarCounter != 2) {
                 Float randomChild = randomInitialValues.getRandomChildrenId(idSectionsBoard.get(i));
+                if (usedChildren.contains(randomChild)) continue;
+
                 setNodeValue(idSectionsBoard.get(i), randomChild, randomInitialValues.getRandonValue());
-                if(validateInput(idSectionsBoard.get(i), randomChild)){
+                if (validateInput(idSectionsBoard.get(i), randomChild)) {
                     auxiliarCounter++;
-                    System.out.println("holaaaa");
-                }
-                else{
+                    usedChildren.add(randomChild);
+                } else {
                     setNodeValue(idSectionsBoard.get(i), randomChild, " ");
                 }
             }
+
 
         }
 
@@ -209,7 +212,8 @@ public class Board{
         for(Node nodeFather : raiz.getChildren()){
             for(Node nodeChildren : nodeFather.getChildren()){
                 if(nodeChildren.getId().equals(childrenid)){
-                     value = nodeChildren.getValue();
+
+                     value += nodeChildren.getValue();
 
                 }
 

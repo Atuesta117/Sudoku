@@ -36,52 +36,58 @@
             <children>
 
                 <!-- Fila 0 -->
-                <TextField fx:id="C0F0" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" prefHeight="57.0" prefWidth="60.0"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C1F0" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="1" prefHeight="57.0" prefWidth="60.0"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C2F0" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="2" prefHeight="57.0" prefWidth="60.0"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C3F0" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="3" prefHeight="57.0" prefWidth="60.0"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C4F0" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="4" prefHeight="57.0" prefWidth="60.0"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C5F0" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="5" prefHeight="57.0" prefWidth="60.0"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P1C1"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="0" GridPane.columnIndex="0" prefHeight="57.0" prefWidth="60.0"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P1C2"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="0" GridPane.columnIndex="1" prefHeight="57.0" prefWidth="60.0"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P1C3"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="0" GridPane.columnIndex="2" prefHeight="57.0" prefWidth="60.0"><font><Font size="32.0" /></font></TextField>
+
+                <TextField fx:id="P2C1"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="0" GridPane.columnIndex="3" prefHeight="57.0" prefWidth="60.0"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P2C2"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="0" GridPane.columnIndex="4" prefHeight="57.0" prefWidth="60.0"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P2C3"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="0" GridPane.columnIndex="5" prefHeight="57.0" prefWidth="60.0"><font><Font size="32.0" /></font></TextField>
 
                 <!-- Fila 1 -->
-                <TextField fx:id="C0F1" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="1"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C1F1" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="1" GridPane.rowIndex="1"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C2F1" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="2" GridPane.rowIndex="1"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C3F1" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="3" GridPane.rowIndex="1"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C4F1" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="4" GridPane.rowIndex="1"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C5F1" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="5" GridPane.rowIndex="1"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P1C4"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="1" GridPane.columnIndex="0"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P1C5"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="1" GridPane.columnIndex="1"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P1C6"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="1" GridPane.columnIndex="2"><font><Font size="32.0" /></font></TextField>
+
+                <TextField fx:id="P2C4"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="1" GridPane.columnIndex="3"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P2C5"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="1" GridPane.columnIndex="4"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P2C6"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="1" GridPane.columnIndex="5"><font><Font size="32.0" /></font></TextField>
 
                 <!-- Fila 2 -->
-                <TextField fx:id="C0F2" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="2"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C1F2" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="1" GridPane.rowIndex="2"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C2F2" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="2" GridPane.rowIndex="2"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C3F2" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="3" GridPane.rowIndex="2"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C4F2" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="4" GridPane.rowIndex="2"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C5F2" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="5" GridPane.rowIndex="2"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P3C1"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="2" GridPane.columnIndex="0"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P3C2"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="2" GridPane.columnIndex="1"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P3C3"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="2" GridPane.columnIndex="2"><font><Font size="32.0" /></font></TextField>
+
+                <TextField fx:id="P4C1"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="2" GridPane.columnIndex="3"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P4C2"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="2" GridPane.columnIndex="4"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P4C3"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="2" GridPane.columnIndex="5"><font><Font size="32.0" /></font></TextField>
 
                 <!-- Fila 3 -->
-                <TextField fx:id="C0F3" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="3"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C1F3" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="1" GridPane.rowIndex="3"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C2F3" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="2" GridPane.rowIndex="3"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C3F3" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="3" GridPane.rowIndex="3"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C4F3" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="4" GridPane.rowIndex="3"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C5F3" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="5" GridPane.rowIndex="3"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P3C4"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="3" GridPane.columnIndex="0"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P3C5"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="3" GridPane.columnIndex="1"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P3C6"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="3" GridPane.columnIndex="2"><font><Font size="32.0" /></font></TextField>
+
+                <TextField fx:id="P4C4"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="3" GridPane.columnIndex="3"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P4C5"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="3" GridPane.columnIndex="4"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P4C6"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="3" GridPane.columnIndex="5"><font><Font size="32.0" /></font></TextField>
 
                 <!-- Fila 4 -->
-                <TextField fx:id="C0F4" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="4"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C1F4" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="1" GridPane.rowIndex="4"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C2F4" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="2" GridPane.rowIndex="4"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C3F4" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="3" GridPane.rowIndex="4"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C4F4" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="4" GridPane.rowIndex="4"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C5F4" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="5" GridPane.rowIndex="4"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P5C1"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="4" GridPane.columnIndex="0"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P5C2"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="4" GridPane.columnIndex="1"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P5C3"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="4" GridPane.columnIndex="2"><font><Font size="32.0" /></font></TextField>
+
+                <TextField fx:id="P6C1"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="4" GridPane.columnIndex="3"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P6C2"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="4" GridPane.columnIndex="4"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P6C3"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="4" GridPane.columnIndex="5"><font><Font size="32.0" /></font></TextField>
 
                 <!-- Fila 5 -->
-                <TextField fx:id="C0F5" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="5"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C1F5" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="1" GridPane.rowIndex="5"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C2F5" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="2" GridPane.rowIndex="5"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C3F5" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="3" GridPane.rowIndex="5"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C4F5" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="4" GridPane.rowIndex="5"><font><Font size="32.0" /></font></TextField>
-                <TextField fx:id="C5F5" alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.columnIndex="5" GridPane.rowIndex="5"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P5C4"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="5" GridPane.columnIndex="0"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P5C5"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="5" GridPane.columnIndex="1"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P5C6"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="5" GridPane.columnIndex="2"><font><Font size="32.0" /></font></TextField>
+
+                <TextField fx:id="P6C4"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="5" GridPane.columnIndex="3"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P6C5"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="5" GridPane.columnIndex="4"><font><Font size="32.0" /></font></TextField>
+                <TextField fx:id="P6C6"  alignment="CENTER" style="-fx-background-color: transparent; -fx-text-fill: #dcdcdc;" GridPane.rowIndex="5" GridPane.columnIndex="5"><font><Font size="32.0" /></font></TextField>
 
             </children>
         </GridPane>
