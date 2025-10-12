@@ -18,11 +18,12 @@ public class GameWindowController {
         for (Node node : sudokuGrid.getChildren()) {
             if (node instanceof TextField) {
                 TextField tf = (TextField) node;
-
+                tf.setText(board.getValueNode(tf.getId()));
+                System.out.println(tf.getText());
                 tf.textProperty().addListener((obs, oldVal, newVal) -> {
                     System.out.println(tf.getId() + " cambió: " + newVal);
                     if (!newVal.isEmpty()) {board.setNodeValue(tf.getId(), newVal);
-                        System.out.println("holaaaaaaaa");
+
 
                         if (!board.validateInput(tf.getId())) {
                             tf.setStyle("-fx-border-color: red ; -fx-border-width: 2px;");

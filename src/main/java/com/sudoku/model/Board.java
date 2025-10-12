@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Board{
     private Node raiz;
+    RandomInitialValues randomInitialValues = new RandomInitialValues();
     public Board() {
         raiz = new Node(0.0f);
         raiz.setValor("");
@@ -11,6 +12,7 @@ public class Board{
     }
     List<Float> idSectionsBoard = Arrays.asList( 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f);
     List<Float> idBoxesBoard = Arrays.asList(0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f);
+
 
     private void setNode( Float father ,Float children){
         if(father.equals(0.0f)){
@@ -39,6 +41,18 @@ public class Board{
                 setNode(idSectionsBoard.get(i), idBoxesBoard.get(j));
             }
 
+            int auxiliarCounter = 0;
+            while(auxiliarCounter != 2){
+                Float randomChild = randomInitialValues.getRandomChildrenId(idSectionsBoard.get(i));
+                setNodeValue(idSectionsBoard.get(i), randomChild, randomInitialValues.getRandonValue());
+                if(validateInput(idSectionsBoard.get(i), randomChild)){
+                    auxiliarCounter++;
+                    System.out.println("holaaaa");
+                }
+                else{
+                    setNodeValue(idSectionsBoard.get(i), randomChild, " ");
+                }
+            }
 
         }
 
@@ -75,6 +89,22 @@ public class Board{
                 }
             }
         }
+    }
+
+    private void setNodeValue(Float fatherId, Float childrenId, String value){
+       for(Node nodeFather: raiz.getChildren()){
+            if(nodeFather.getId().equals(fatherId)){
+                for(Node nodeChild: nodeFather.getChildren()){
+                    if(nodeChild.getId().equals(childrenId)){
+                        nodeChild.setValor(value);
+                    }
+                }
+            }
+        }
+    }
+    private boolean validateInput(Float fatherid, Float childrenid){
+
+        return validateSection(fatherid) && validateColumn(fatherid,  childrenid) && validateRow(fatherid,  childrenid);
     }
 
     public boolean validateInput(String textFieldId){
@@ -171,6 +201,25 @@ public class Board{
 
         return valuesRow.size() == new HashSet<>(valuesRow).size();
     }
+
+    public String getValueNode(String textFieldId){
+        Float childrenid = getChildrenid(textFieldId);
+        Float fatherid = getFatherid(textFieldId);
+        String value = "";
+        for(Node nodeFather : raiz.getChildren()){
+            for(Node nodeChildren : nodeFather.getChildren()){
+                if(nodeChildren.getId().equals(childrenid)){
+                     value = nodeChildren.getValue();
+
+                }
+
+            }
+        }
+
+        return value;
+    }
+
+
 
 }
 
