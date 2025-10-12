@@ -7,6 +7,7 @@ public class Board{
     public Board() {
         raiz = new Node(0.0f);
         raiz.setValor("");
+        initializeSections();
     }
     List<Float> idSectionsBoard = Arrays.asList( 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f);
     List<Float> idBoxesBoard = Arrays.asList(0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f);
@@ -45,24 +46,26 @@ public class Board{
     }
 
     private Float getFatherid(String textFieldId){
-        String sudokuSection = textFieldId.charAt(1) + ".0";
+
+        String sudokuSection = textFieldId.charAt(1) + "";
+        sudokuSection += ".0";
         return Float.parseFloat(sudokuSection);
     }
 
     private Float getChildrenid(String textFieldId){
         String idChildren = "";
-        for(Integer i = 1; i <4 ; i += 2){
-            if(i.equals(1)){
-                idChildren += textFieldId.charAt(i) + ".";
-            }
-            else{
-                idChildren += textFieldId.charAt(i);
-            }
-        }
+
+                idChildren += textFieldId.charAt(1) + "";
+
+                idChildren += ".";
+                String aux= textFieldId.charAt(3) + "";
+                idChildren += aux;
         return Float.parseFloat(idChildren);
     }
 
-    public void setNodeValue(Float fatherId, Float childrenId, String value){
+    public void setNodeValue(String idTextfield, String value){
+        Float fatherId = getFatherid(idTextfield);
+        Float childrenId = getChildrenid(idTextfield);
         for(Node nodeFather: raiz.getChildren()){
             if(nodeFather.getId().equals(fatherId)){
                 for(Node nodeChild: nodeFather.getChildren()){
@@ -74,7 +77,9 @@ public class Board{
         }
     }
 
-    public boolean validateInput(Float fatherid, Float childrenid){
+    public boolean validateInput(String textFieldId){
+        Float childrenid = getChildrenid(textFieldId);
+        Float fatherid = getFatherid(textFieldId);
         return validateSection(fatherid) && validateColumn(fatherid,  childrenid) && validateRow(fatherid,  childrenid);
     }
 
@@ -102,7 +107,8 @@ public class Board{
         List<Node> columnNodes = new ArrayList<>();//nodes vinculated with the column to assess
         List<String> valuesColumn = new ArrayList<>();
         Float columnIdentifier = (childrenId-fatherId <0.4)? childrenId-fatherId: childrenId-fatherId-columnConstantPerSection;
-        System.out.println(columnIdentifier);
+
+
         for(int i = initial; i < 6; i += 2){
             columnNodes.add(nodes.get(i));
 
@@ -112,12 +118,6 @@ public class Board{
         for(Node nodeFather : columnNodes){
             List<Node> children = nodeFather.getChildren();
             for(Node nodeChildren : children){
-                System.out.print(" id nodo"+ nodeChildren.getId());
-                System.out.println(" valor nodo"+ nodeChildren.getValue());
-
-                System.out.println(nodeChildren.getId()-nodeFather.getId());
-                System.out.println(nodeChildren.getId()-nodeFather.getId()-columnConstantPerSection);
-                System.out.println("----------------------------------------");
                 final float EPSILON = 0.0001f;
 
                 float diff1 = nodeChildren.getId() - nodeFather.getId();
@@ -127,7 +127,8 @@ public class Board{
                         Math.abs(diff2 - columnIdentifier) < EPSILON) {
                     if (!nodeChildren.getValue().equals(" ")) {
                         valuesColumn.add(nodeChildren.getValue());
-                        System.out.println(valuesColumn);
+
+
                     }
                 }
 
@@ -146,25 +147,28 @@ public class Board{
         final float EPSILON = 0.0001f;
 
         for (Node nodeChildren: nodeFather.getChildren()){
-            System.out.println(" id nodo"+ nodeChildren.getId());
+
             float diff = nodeChildren.getId() - nodeFather.getId();
             boolean matches = rowConstants.stream().anyMatch(c -> Math.abs(c - diff) < EPSILON);
 
             if( matches && !nodeChildren.getValue().trim().isEmpty() ){
                 valuesRow.add(nodeChildren.getValue().trim());
-                System.out.println(" id nodo"+ nodeChildren.getId());
+
             }
         }
         for(Node nodeChild : nodeNeighbor.getChildren()){
-            System.out.println(" id nodo"+ nodeChild.getId());
+
+
             float diff = nodeChild.getId() - nodeNeighbor.getId();
             boolean matches = rowConstants.stream().anyMatch(c -> Math.abs(c - diff) < EPSILON);
             if(matches  &&  !nodeChild.getValue().trim().isEmpty()){
                 valuesRow.add(nodeChild.getValue().trim());
-                System.out.println(" id nodo"+ nodeChild.getId());
+
+
             }
         }
-        System.out.println(valuesRow);
+
+
         return valuesRow.size() == new HashSet<>(valuesRow).size();
     }
 

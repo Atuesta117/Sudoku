@@ -1,116 +1,43 @@
 package com.sudoku.controller;
 
+import com.sudoku.model.Board;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import org.w3c.dom.ls.LSOutput;
 
 public class GameWindowController {
-
+    Board board = new Board();
     @FXML
-    private TextField P1C1;
-
+    GridPane sudokuGrid;
     @FXML
-    private TextField P1C2;
+    private void initialize() {
+        // Recorremos todos los nodos dentro del grid
+        for (Node node : sudokuGrid.getChildren()) {
+            if (node instanceof TextField) {
+                TextField tf = (TextField) node;
 
-    @FXML
-    private TextField P1C3;
+                tf.textProperty().addListener((obs, oldVal, newVal) -> {
+                    System.out.println(tf.getId() + " cambió: " + newVal);
+                    if (!newVal.isEmpty()) {board.setNodeValue(tf.getId(), newVal);
+                        System.out.println("holaaaaaaaa");
 
-    @FXML
-    private TextField P1C4;
+                        if (!board.validateInput(tf.getId())) {
+                            tf.setStyle("-fx-border-color: red ; -fx-border-width: 2px;");
+                        }
+                        else {tf.setStyle("-fx-background-color: transparent");}
+                    }
+                    else{
+                        tf.setStyle("");
+                    }
 
-    @FXML
-    private TextField P1C5;
+                });
 
-    @FXML
-    private TextField P1C6;
+                }
+        }
+    }
 
-    @FXML
-    private TextField P2C1;
-
-    @FXML
-    private TextField P2C2;
-
-    @FXML
-    private TextField P2C3;
-
-    @FXML
-    private TextField P2C4;
-
-    @FXML
-    private TextField P2C5;
-
-    @FXML
-    private TextField P2C6;
-
-    @FXML
-    private TextField P3C1;
-
-    @FXML
-    private TextField P3C2;
-
-    @FXML
-    private TextField P3C3;
-
-    @FXML
-    private TextField P3C4;
-
-    @FXML
-    private TextField P3C5;
-
-    @FXML
-    private TextField P3C6;
-
-    @FXML
-    private TextField P4C1;
-
-    @FXML
-    private TextField P4C2;
-
-    @FXML
-    private TextField P4C3;
-
-    @FXML
-    private TextField P4C4;
-
-    @FXML
-    private TextField P4C5;
-
-    @FXML
-    private TextField P4C6;
-
-    @FXML
-    private TextField P5C1;
-
-    @FXML
-    private TextField P5C2;
-
-    @FXML
-    private TextField P5C3;
-
-    @FXML
-    private TextField P5C4;
-
-    @FXML
-    private TextField P5C5;
-
-    @FXML
-    private TextField P5C6;
-
-    @FXML
-    private TextField P6C1;
-
-    @FXML
-    private TextField P6C2;
-
-    @FXML
-    private TextField P6C3;
-
-    @FXML
-    private TextField P6C4;
-
-    @FXML
-    private TextField P6C5;
-
-    @FXML
-    private TextField P6C6;
 
 }
