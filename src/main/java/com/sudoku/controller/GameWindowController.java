@@ -22,22 +22,24 @@ public class GameWindowController {
         for (Node node : sudokuGrid.getChildren()) {
             if (node instanceof TextField) {
                 TextField tf = (TextField) node;
-                tf.setText(board.getValueNode(tf.getId()).equals(" ") ? "" : board.getValueNode(tf.getId()));
 
-                // 🔥 Escuchamos cambios
+                setEmptyTextFields(tf);
+                // we listen the changer
                 tf.textProperty().addListener((obs, oldVal, newVal) -> {
                     board.setNodeValue(tf.getId(), newVal.isEmpty() ? " " : newVal);
 
-                    // ✅ Revalida todo el tablero
+                    // Validate all
                     validateAllTextFields();
                 });
             }
         }
 
-        // Inicialmente valida todo
+        // Validate all just in case
         validateAllTextFields();
     }
-
+    private void setEmptyTextFields(TextField tf) {
+        tf.setText(board.getValueNode(tf.getId()).equals(" ") ? "" : board.getValueNode(tf.getId()));
+    }
     private void validateAllTextFields() {
         for (Node node : sudokuGrid.getChildren()) {
             if (node instanceof TextField) {

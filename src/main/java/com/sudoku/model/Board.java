@@ -113,9 +113,9 @@ public class Board{
 
     public boolean validateInput(String textFieldId){
         String childValue = getValueNode(textFieldId);
-        Float childrenid = getChildrenid(textFieldId);
-        Float fatherid = getFatherid(textFieldId);
-        return validateSection(fatherid, childValue) && validateColumn(fatherid,  childrenid, childValue) && validateRow(fatherid,  childrenid, childValue);
+        Float childrenId = getChildrenid(textFieldId);
+        Float fatherId = getFatherid(textFieldId);
+        return validateSection(fatherId, childValue) && validateColumn(fatherId,  childrenId, childValue) && validateRow(fatherId,  childrenId, childValue);
     }
 
     private boolean validateSection(Float fatherid, String childValue){
@@ -132,11 +132,11 @@ public class Board{
 
                 }
             }
-        long count = sectionValues.stream()
-                .filter(v -> v.equals(childValue))
-                .count();
+        long count = sectionValues.stream()//go through the entire list
+                .filter(v -> v.equals(childValue))//filter the values that are equals to the childValue (the one we are evaluating)
+                .count();//we count it
 
-        return count <= 1;
+        return count <= 1;//if there are more than 1, It's because this is repeated
 
     }
 
