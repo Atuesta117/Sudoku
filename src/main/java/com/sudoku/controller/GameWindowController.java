@@ -13,39 +13,48 @@ import javafx.scene.control.TextField;
 
 public class GameWindowController {
     Board board = new Board();
+
     @FXML
     GridPane sudokuGrid;
+
     @FXML
     private void initialize() {
-        // Recorremos todos los nodos dentro del grid
         for (Node node : sudokuGrid.getChildren()) {
             if (node instanceof TextField) {
                 TextField tf = (TextField) node;
+                tf.setText(board.getValueNode(tf.getId()).equals(" ") ? "" : board.getValueNode(tf.getId()));
 
-                tf.setText(board.getValueNode(tf.getId()));
-                if(!tf.getText().equals(" ")){
-                    System.out.println(tf.getId());
-                    System.out.println("value: " +  board.getValueNode(tf.getId()));
-                }
+                // 🔥 Escuchamos cambios
                 tf.textProperty().addListener((obs, oldVal, newVal) -> {
-                    System.out.println(tf.getId() + " cambió: " + newVal);
-                    if (!newVal.isEmpty()) {board.setNodeValue(tf.getId(), newVal);
+                    board.setNodeValue(tf.getId(), newVal.isEmpty() ? " " : newVal);
 
-
-                        if (!board.validateInput(tf.getId())) {
-                            tf.setStyle("-fx-border-color: red ; -fx-border-width: 2px;");
-                        }
-                        else {tf.setStyle("-fx-background-color: transparent");}
-                    }
-                    else{
-                        tf.setStyle("");
-                    }
-
+                    // ✅ Revalida todo el tablero
+                    validateAllTextFields();
                 });
-
-                }
+            }
         }
+
+        // Inicialmente valida todo
+        validateAllTextFields();
     }
 
+    private void validateAllTextFields() {
+        for (Node node : sudokuGrid.getChildren()) {
+            if (node instanceof TextField) {
+                TextField tf = (TextField) node;
+                String value = tf.getText();
 
+                if (value.isEmpty()) {
+                    tf.setStyle("");
+                    continue;
+                }
+
+                if (board.validateInput(tf.getId())) {
+                    tf.setStyle("-fx-background-color: transparent;");
+                } else {
+                    tf.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                }
+            }
+        }
+    }
 }

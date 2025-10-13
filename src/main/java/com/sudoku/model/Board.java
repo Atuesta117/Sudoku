@@ -46,9 +46,10 @@ public class Board{
             while (auxiliarCounter != 2) {
                 Float randomChild = randomInitialValues.getRandomChildrenId(idSectionsBoard.get(i));
                 if (usedChildren.contains(randomChild)) continue;
+                String randomValue = randomInitialValues.getRandonValue();
 
-                setNodeValue(idSectionsBoard.get(i), randomChild, randomInitialValues.getRandonValue());
-                if (validateInput(idSectionsBoard.get(i), randomChild)) {
+                setNodeValue(idSectionsBoard.get(i), randomChild, randomValue );
+                if (validateInput(idSectionsBoard.get(i), randomChild, randomValue)) {
                     auxiliarCounter++;
                     usedChildren.add(randomChild);
                 } else {
@@ -105,18 +106,19 @@ public class Board{
             }
         }
     }
-    private boolean validateInput(Float fatherid, Float childrenid){
+    private boolean validateInput(Float fatherid, Float childrenid, String value){
 
-        return validateSection(fatherid) && validateColumn(fatherid,  childrenid) && validateRow(fatherid,  childrenid);
+        return validateSection(fatherid,value) && validateColumn(fatherid,  childrenid, value) && validateRow(fatherid,  childrenid, value);
     }
 
     public boolean validateInput(String textFieldId){
+        String childValue = getValueNode(textFieldId);
         Float childrenid = getChildrenid(textFieldId);
         Float fatherid = getFatherid(textFieldId);
-        return validateSection(fatherid) && validateColumn(fatherid,  childrenid) && validateRow(fatherid,  childrenid);
+        return validateSection(fatherid, childValue) && validateColumn(fatherid,  childrenid, childValue) && validateRow(fatherid,  childrenid, childValue);
     }
 
-    private boolean validateSection(Float fatherid){
+    private boolean validateSection(Float fatherid, String childValue){
         List<String> sectionValues = new ArrayList<>();
             for(Node nodo : raiz.getChildren()){
                 if(nodo.getId().equals(fatherid)){
@@ -130,10 +132,16 @@ public class Board{
 
                 }
             }
-        return sectionValues.size() == new HashSet<>(sectionValues).size();
+        long count = sectionValues.stream()
+                .filter(v -> v.equals(childValue))
+                .count();
+
+        return count <= 1;
+
     }
 
-    private boolean validateColumn(Float fatherId, Float childrenId){
+    private boolean validateColumn(Float fatherId, Float childrenId, String childValue){
+
         int initial = (fatherId%2 == 0)? 1:0;//The left sections are in positions of the root array from 0 to 5 with an increase of two, that is, 1,2,4 while the right ones are 1,3,5. The idea of this is that the for starts from 0 or 1 depending on whether a column that is part of the left or right sections is going to be evaluated.
         Float columnConstantPerSection = 0.3f; //The idea is that if, for example, you want to check a line with respect to its sudoku column, you try to take the "mini" column within the section
         List<Node> nodes = raiz.getChildren();
@@ -167,9 +175,15 @@ public class Board{
 
             }
         }
-        return valuesColumn.size() == new HashSet<>(valuesColumn).size();
+        long count = valuesColumn.stream()
+                .filter(v -> v.equals(childValue))
+                .count();
+
+        return count <= 1;
+
     }
-    private boolean validateRow(Float fatherId, Float childrenId){
+    private boolean validateRow(Float fatherId, Float childrenId, String childValue){
+
         List<Float> rowConstants = ( childrenId - fatherId < 0.4f)? Arrays.asList(0.1f,0.2f,0.3f): Arrays.asList(0.4f,0.5f,0.6f);
         List<String> valuesRow = new ArrayList<>();
         Float neighborId = (fatherId%2.0f ==0)? fatherId-1.0f: fatherId+ 1.0f;
@@ -202,7 +216,12 @@ public class Board{
         }
 
 
-        return valuesRow.size() == new HashSet<>(valuesRow).size();
+        long count = valuesRow.stream()
+                .filter(v -> v.equals(childValue))
+                .count();
+
+        return count <= 1;
+
     }
 
     public String getValueNode(String textFieldId){
