@@ -4,6 +4,7 @@ import com.sudoku.model.Board;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import org.w3c.dom.ls.LSOutput;
@@ -22,8 +23,9 @@ public class GameWindowController {
         for (Node node : sudokuGrid.getChildren()) {
             if (node instanceof TextField) {
                 TextField tf = (TextField) node;
-
+                ignoreInvalidInputs(tf);
                 setEmptyTextFields(tf);
+                setirrenewableValues(tf);
                 // we listen the changer
                 tf.textProperty().addListener((obs, oldVal, newVal) -> {
                     board.setNodeValue(tf.getId(), newVal.isEmpty() ? " " : newVal);
@@ -58,5 +60,25 @@ public class GameWindowController {
                 }
             }
         }
+    }
+
+
+    private void setirrenewableValues(TextField tf) {
+        if(board.getNode(tf.getId()).getIsInitialValue()){
+            tf.setEditable(false);
+        }
+    }
+
+    private void ignoreInvalidInputs(TextField tf) {
+        tf.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+            String character = event.getCharacter();
+
+            // ignore other thins different to 1 to 6
+            if (!character.matches("[1-6]") || character.isEmpty()) {
+                event.consume(); //prevents the key from being processed
+
+            }
+        });
+
     }
 }

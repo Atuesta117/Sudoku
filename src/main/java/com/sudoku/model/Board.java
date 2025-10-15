@@ -52,6 +52,9 @@ public class Board{
                 if (validateInput(idSectionsBoard.get(i), randomChild, randomValue)) {
                     auxiliarCounter++;
                     usedChildren.add(randomChild);
+                    Node nodo = getNode(idSectionsBoard.get(i), randomChild);
+                    nodo.setIsInitialValue(true);
+
                 } else {
                     setNodeValue(idSectionsBoard.get(i), randomChild, " ");
                 }
@@ -242,7 +245,37 @@ public class Board{
         return value;
     }
 
+    private Node getNode(Float fatherId, Float childrenId){
+        for(int i = 0; i < raiz.getChildren().size(); i++){
+                if(raiz.getChildren().get(i).getId().equals(fatherId)){
+                    for(Node nodeChildren : raiz.getChildren().get(i).getChildren()){
+                        if(nodeChildren.getId().equals(childrenId)){return  nodeChildren;}
+                    }
+
+            }
+
+        }
+        return null;
 
 
+    }
+
+
+    public Node getNode(String textFieldId){
+        Float childrenId = getChildrenid(textFieldId);
+        Float fatherId = getFatherid(textFieldId);
+        for(int i = 0; i < raiz.getChildren().size(); i++){
+            if(raiz.getChildren().get(i).getId().equals(fatherId)){
+                for(Node nodeChildren : raiz.getChildren().get(i).getChildren()){
+                    if(nodeChildren.getId().equals(childrenId)){return  nodeChildren;}
+                }
+
+            }
+
+        }
+        return null;
+
+
+    }
 }
 
