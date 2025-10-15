@@ -29,7 +29,7 @@ public class GameWindow extends Stage {
         return Holder.INSTANCE;
     }
 
-    public static void showInstance()  {
+    public static void showInstance() throws IOException {
         Holder.INSTANCE.show();
     }
     public static void closeInstance()  {
