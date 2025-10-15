@@ -3,11 +3,11 @@ package com.sudoku.model;
 import java.util.*;
 
 public class Board{
-    private Node raiz;
+    private Node root;
     RandomInitialValues randomInitialValues = new RandomInitialValues();
     public Board() {
-        raiz = new Node(0.0f);
-        raiz.setValor("");
+        root = new Node(0.0f);
+        root.setValor("");
         initializeSections();
     }
     List<Float> idSectionsBoard = Arrays.asList( 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f);
@@ -17,11 +17,11 @@ public class Board{
     private void setNode( Float father ,Float children){
         if(father.equals(0.0f)){
             Node nodo = new Node(children);
-            raiz.addCHildren(nodo);
+            root.addCHildren(nodo);
 
         }
         else{
-            for(Node nodo : raiz.getChildren()){
+            for(Node nodo : root.getChildren()){
                 if(nodo.getId().equals(father)){
                     Node nodo2 = new Node(children+father);
                     nodo.addCHildren(nodo2);
@@ -84,7 +84,7 @@ public class Board{
     public void setNodeValue(String idTextfield, String value){
         Float fatherId = getFatherid(idTextfield);
         Float childrenId = getChildrenid(idTextfield);
-        for(Node nodeFather: raiz.getChildren()){
+        for(Node nodeFather: root.getChildren()){
             if(nodeFather.getId().equals(fatherId)){
                 for(Node nodeChild: nodeFather.getChildren()){
                     if(nodeChild.getId().equals(childrenId)){
@@ -95,8 +95,10 @@ public class Board{
         }
     }
 
-    private void setNodeValue(Float fatherId, Float childrenId, String value){
-       for(Node nodeFather: raiz.getChildren()){
+
+    //This chagnge from private to protected in order to apply inheritance
+    protected void setNodeValue(Float fatherId, Float childrenId, String value){
+       for(Node nodeFather: root.getChildren()){
             if(nodeFather.getId().equals(fatherId)){
                 for(Node nodeChild: nodeFather.getChildren()){
                     if(nodeChild.getId().equals(childrenId)){
@@ -106,12 +108,14 @@ public class Board{
             }
         }
     }
-    private boolean validateInput(Float fatherid, Float childrenid, String value){
+    protected boolean validateInput(Float fatherid, Float childrenid, String value){
 
         return validateSection(fatherid,value) && validateColumn(fatherid,  childrenid, value) && validateRow(fatherid,  childrenid, value);
     }
 
-    public boolean validateInput(String textFieldId){
+
+    //Another functionality changed to apply inheritance
+    private boolean validateInput(String textFieldId){
         String childValue = getValueNode(textFieldId);
         Float childrenId = getChildrenid(textFieldId);
         Float fatherId = getFatherid(textFieldId);
@@ -120,7 +124,7 @@ public class Board{
 
     private boolean validateSection(Float fatherid, String childValue){
         List<String> sectionValues = new ArrayList<>();
-            for(Node nodo : raiz.getChildren()){
+            for(Node nodo : root.getChildren()){
                 if(nodo.getId().equals(fatherid)){
 
                     for(Node nodo2 : nodo.getChildren()){
@@ -144,7 +148,7 @@ public class Board{
 
         int initial = (fatherId%2 == 0)? 1:0;//The left sections are in positions of the root array from 0 to 5 with an increase of two, that is, 1,2,4 while the right ones are 1,3,5. The idea of this is that the for starts from 0 or 1 depending on whether a column that is part of the left or right sections is going to be evaluated.
         Float columnConstantPerSection = 0.3f; //The idea is that if, for example, you want to check a line with respect to its sudoku column, you try to take the "mini" column within the section
-        List<Node> nodes = raiz.getChildren();
+        List<Node> nodes = root.getChildren();
         List<Node> columnNodes = new ArrayList<>();//nodes vinculated with the column to assess
         List<String> valuesColumn = new ArrayList<>();
         Float columnIdentifier = (childrenId-fatherId <0.4)? childrenId-fatherId: childrenId-fatherId-columnConstantPerSection;
@@ -189,8 +193,8 @@ public class Board{
         Float neighborId = (fatherId%2.0f ==0)? fatherId-1.0f: fatherId+ 1.0f;
         int fatherInt = Math.round(fatherId);
         int neighborInt = Math.round(neighborId);
-        Node nodeFather = raiz.getChildren().get(fatherInt-1);
-        Node nodeNeighbor = raiz.getChildren().get(neighborInt-1);
+        Node nodeFather = root.getChildren().get(fatherInt-1);
+        Node nodeNeighbor = root.getChildren().get(neighborInt-1);
         final float EPSILON = 0.0001f;
 
         for (Node nodeChildren: nodeFather.getChildren()){
@@ -228,7 +232,7 @@ public class Board{
         Float childrenid = getChildrenid(textFieldId);
         Float fatherid = getFatherid(textFieldId);
         String value = "";
-        for(Node nodeFather : raiz.getChildren()){
+        for(Node nodeFather : root.getChildren()){
             for(Node nodeChildren : nodeFather.getChildren()){
                 if(nodeChildren.getId().equals(childrenid)){
 
@@ -242,7 +246,9 @@ public class Board{
         return value;
     }
 
-
-
+    //Important method to the help feature
+    protected Node getRoot() {
+        return root;
+    }
 }
 
