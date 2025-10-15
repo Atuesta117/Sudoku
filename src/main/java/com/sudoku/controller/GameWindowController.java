@@ -54,7 +54,7 @@ public class GameWindowController {
                 if (board.validateInput(tf.getId())) {
                     tf.setStyle("-fx-background-color: transparent;");
                 } else {
-                    tf.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                    tf.setStyle("-fx-text-fill: red; -fx-border-width: 2px;");
                 }
             }
         }
