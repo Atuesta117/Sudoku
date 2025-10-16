@@ -37,7 +37,7 @@ public class SudokuMainMenuController {
         } catch (IOException e)
         {
             e.printStackTrace();
-            System.err.println("Error al abrir la ventana del juego");
+            System.err.println("  ");
         }
     }
 

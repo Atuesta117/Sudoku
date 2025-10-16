@@ -3,14 +3,12 @@ package com.sudoku.controller;
 import com.sudoku.model.Board;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import org.w3c.dom.ls.LSOutput;
-
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class GameWindowController {
     Board board = new Board();
@@ -18,21 +16,32 @@ public class GameWindowController {
     @FXML
     GridPane sudokuGrid;
 
+    private TextField[][] textFields = new TextField[6][6];
+    private Queue<String> lastValues = new LinkedList<>();
+
     @FXML
     private void initialize() {
         for (Node node : sudokuGrid.getChildren()) {
             if (node instanceof TextField) {
                 TextField tf = (TextField) node;
+                Integer row = GridPane.getRowIndex(tf);
+                Integer col = GridPane.getColumnIndex(tf);
+                textFields[row][col] = tf;
                 ignoreInvalidInputs(tf);
                 setEmptyTextFields(tf);
                 setirrenewableValues(tf);
                 // we listen the changer
                 tf.textProperty().addListener((obs, oldVal, newVal) -> {
                     board.setNodeValue(tf.getId(), newVal.isEmpty() ? " " : newVal);
+                    if(!newVal.matches("[0-6]")) {
+                        tf.setText(""); }
+                    else{// Validate all
+                        validateAllTextFields();
+                        addValueToList(newVal);}
 
-                    // Validate all
-                    validateAllTextFields();
                 });
+
+                tf.addEventFilter(KeyEvent.KEY_PRESSED, e -> handleArrowNavigation(e, row, col));
             }
         }
 
@@ -81,4 +90,57 @@ public class GameWindowController {
         });
 
     }
+
+    private void handleArrowNavigation(KeyEvent e, int row, int col) {
+        switch (e.getCode()) {
+            case RIGHT -> moveFocus(row, col + 1);
+            case LEFT -> moveFocus(row, col - 1);
+            case DOWN -> moveFocus(row + 1, col);
+            case UP -> moveFocus(row - 1, col);
+        }
+    }
+
+    private void moveFocus(int newRow, int newCol) {
+        if (newRow >= 0 && newRow < 6 && newCol >= 0 && newCol < 6) {
+            TextField next = textFields[newRow][newCol];
+            if (next != null && next.isEditable()) {
+                next.requestFocus();
+            } else {
+                // Si no es editable, sigue avanzando en esa dirección
+                moveFocusRecursively(newRow, newCol, newRow - (next == null ? 0 : 0), newCol);
+            }
+        }
+    }
+
+    private void moveFocusRecursively(int row, int col, int deltaRow, int deltaCol) {
+        // Movimiento recursivo para saltar celdas bloqueadas
+        if (row < 0 || row >= 6 || col < 0 || col >= 6) return;
+        TextField next = textFields[row][col];
+        if (next != null && next.isEditable()) {
+            next.requestFocus();
+        }
+    }
+
+
+    private void addValueToList(String value) {
+
+        lastValues.add(value);
+        if(lastValues.size() > 6 ){
+            lastValues.poll();
+        }
+        showLastValues();
+
+    }
+    @FXML
+    private Label textFieldLastValues;
+
+
+    void showLastValues(){
+        StringBuilder message = new StringBuilder();
+        for(String value : lastValues){
+            message.append(value).append(" ");
+        }
+        textFieldLastValues.setText(message.toString());
+    }
+
 }
