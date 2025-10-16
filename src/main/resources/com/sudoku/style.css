@@ -69,3 +69,33 @@
 #optionsButton:hover {
     -fx-text-fill: #87CEEB; /* Azul suave para Options */
 }
+
+.GameButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFFFF0; /* Blanco hueso/marfil */
+    -fx-font-family: "Serif", "Georgia", "Times New Roman";
+    -fx-font-size: 32px;
+    -fx-font-weight: normal;
+    -fx-padding: 5px 10px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 8, 0.3, 0, 3);
+    -fx-content-display: center;
+}
+
+/* ===== EFECTO HOVER (cuando pasas el mouse encima) ===== */
+.GameButton:hover {
+    -fx-text-fill: #FFD700; /* Dorado al pasar el mouse */
+    -fx-effect: dropshadow(gaussian, rgba(255, 215, 0, 0.8), 15, 0.7, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* ===== EFECTO PRESSED (cuando haces click) ===== */
+.GameButton:pressed {
+    -fx-text-fill: #DAA520;
+    -fx-translate-y: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.9), 5, 0.5, 0, 2);
+}
