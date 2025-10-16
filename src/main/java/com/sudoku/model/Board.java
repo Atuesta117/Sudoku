@@ -393,6 +393,39 @@ public class Board {
         }
         return null;
     }
+
+    /**
+     * Checks if the Sudoku board is completely filled and all values are valid.
+     *
+     * @return true if all 36 cells are filled with valid values; false otherwise.
+     */
+    public boolean isSudokuCompleteAndValid() {
+        int validCount = 0;
+
+        for (Node section : root.getChildren()) {
+            for (Node cell : section.getChildren()) {
+                String value = cell.getValue();
+
+                // ignorar vacíos
+                if (value.equals("") || value.trim().isEmpty()) {
+                    return false; // si hay alguna vacía, ya no está completo
+                }
+
+                Float fatherId = section.getId();
+                Float childId = cell.getId();
+
+                // si alguna es inválida, el sudoku no está correctamente completado
+                if (!validateInput(fatherId, childId, value)) {
+                    return false;
+                }
+
+                validCount++;
+            }
+        }
+
+        return validCount == 36;
+    }
+
 }
 
 

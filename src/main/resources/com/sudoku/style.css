@@ -99,3 +99,12 @@
     -fx-translate-y: 2px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.9), 5, 0.5, 0, 2);
 }
+
+.winner-label {
+    -fx-font-family: "Serif", "Georgia", "Times New Roman";
+    -fx-font-size: 90px;
+    -fx-font-weight: bold;
+    -fx-text-fill: linear-gradient(to bottom, #FFD700 0%, #DAA520 50%, #B8860B 100%);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 15, 0.5, 0, 5);
+}
+

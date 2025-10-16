@@ -4,15 +4,21 @@ import com.sudoku.model.Board;
 import com.sudoku.model.Helper;
 import com.sudoku.view.GameWindow;
 import com.sudoku.view.SudokuMainMenu;
+import com.sudoku.view.VictoryWindow;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -21,6 +27,8 @@ import java.util.Queue;
 
 public class GameWindowController {
     Board board = new Board();
+    private boolean victoryShown = false;
+
     private Helper helper = new Helper(board);
 
     @FXML
@@ -40,23 +48,53 @@ public class GameWindowController {
                 ignoreInvalidInputs(tf);
                 setEmptyTextFields(tf);
                 setirrenewableValues(tf);
+
                 // we listen the changer
                 tf.textProperty().addListener((obs, oldVal, newVal) -> {
                     board.setNodeValue(tf.getId(), newVal.isEmpty() ? " " : newVal);
-                    if(!newVal.matches("[0-6]")) {
-                        tf.setText(""); }
-                    else{// Validate all
-                        validateAllTextFields();
-                        addValueToList(newVal);}
 
+                    if(!newVal.matches("[0-6]")) {
+                        tf.setText("");
+                    } else {
+                        // Validate all
+                        validateAllTextFields();
+                        addValueToList(newVal);
+
+                        // Verificar victoria - CÓDIGO ACTUALIZADO
+                        if (!victoryShown && board.isSudokuCompleteAndValid()) {
+                            victoryShown = true;
+                            Platform.runLater(() -> {
+                                try {
+                                    System.out.println("Intentando abrir ventana de victoria...");
+
+                                    // Cargar la ventana de victoria
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/sudoku/VictoryWindow.fxml"));
+                                    Parent root = loader.load();
+
+                                    Stage victoryStage = new Stage();
+                                    victoryStage.setScene(new Scene(root));
+                                    victoryStage.setTitle("¡Victoria!");
+                                    victoryStage.setResizable(false);
+                                    victoryStage.show();
+
+                                    System.out.println("Ventana de victoria abierta!");
+
+                                    // Cerrar ventana actual del juego
+                                    Stage currentStage = (Stage) sudokuGrid.getScene().getWindow();
+                                    currentStage.close();
+
+                                } catch (IOException e) {
+                                    System.err.println("ERROR AL ABRIR VENTANA DE VICTORIA:");
+                                    e.printStackTrace();
+                                }
+                            });
+                        }
+                    }
                 });
 
                 tf.addEventFilter(KeyEvent.KEY_PRESSED, e -> handleArrowNavigation(e, row, col));
             }
         }
-
-        // Validate all just in case
-        validateAllTextFields();
     }
     private void setEmptyTextFields(TextField tf) {
         tf.setText(board.getValueNode(tf.getId()).equals(" ") ? "" : board.getValueNode(tf.getId()));
@@ -209,5 +247,6 @@ public class GameWindowController {
             }
         }
     }
+
 
 }
