@@ -162,7 +162,7 @@ public class Board implements IBoard {
         // So, "1.3" is constructed and parsed.
         // Note: Original code used charAt(3), which might be "P1C3" format.
         // Assuming "tSC" format as per common GUI element naming.
-        String idChildren = textFieldId.charAt(1) + "." + textFieldId.charAt(2);
+        String idChildren = textFieldId.charAt(1) + "." + textFieldId.charAt(3);
         return Float.parseFloat(idChildren);
     }
 
@@ -477,23 +477,7 @@ public class Board implements IBoard {
      *
      * @return true if all 36 cells are filled with valid values; false otherwise.
      */
-    @Override
-    public boolean isSudokuCompleteAndValid() {
-        // No need for validCount, as we return false immediately on any invalid or empty cell.
 
-        for (Node section : root.getChildren()) {
-            if (section.getId().equals(fatherId)) {
-                for (Node cell : section.getChildren()) {
-                    if (cell.getId().equals(childId)) {
-                        return cell;
-                    }
-                }
-            }
-        }
-
-        // If the loop finishes, it means all cells are filled and valid.
-        return true;
-    }
 
     /**
      * Checks if the Sudoku board is completely filled and all values are valid.
@@ -507,7 +491,7 @@ public class Board implements IBoard {
             for (Node cell : section.getChildren()) {
                 String value = cell.getValue();
 
-                // ignorar vacíos
+                // ignore empty
                 if (value.equals("") || value.trim().isEmpty()) {
                     return false; // si hay alguna vacía, ya no está completo
                 }
@@ -515,7 +499,7 @@ public class Board implements IBoard {
                 Float fatherId = section.getId();
                 Float childId = cell.getId();
 
-                // si alguna es inválida, el sudoku no está correctamente completado
+                //if some is invalid, the sudoku is not completed already
                 if (!validateInput(fatherId, childId, value)) {
                     return false;
                 }

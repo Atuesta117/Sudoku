@@ -35,7 +35,7 @@ import java.util.Queue;
  * </p>
  */
 public class GameWindowController {
-    Board board = new Board();
+    /** It tells us if the player completed the sudoku*/
     private boolean victoryShown = false;
 
 
@@ -90,7 +90,7 @@ public class GameWindowController {
 
                 ignoreInvalidInputs(tf);
                 setEmptyTextFields(tf);
-                setirrenewableValues(tf);
+                setiIrrenewableValues(tf);
 
                 // we listen the changer
                 setiIrrenewableValues(tf);
