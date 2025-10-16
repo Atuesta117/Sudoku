@@ -145,10 +145,7 @@ public class GameWindowController {
                             });
                         }
                     }
-                    // Add to recent values history if valid
-                    if (!newVal.isEmpty()) {
-                        addValueToList(newVal);
-                    }
+
                 });
 
                 tf.addEventFilter(KeyEvent.KEY_PRESSED, e -> handleArrowNavigation(e, row, col));
@@ -295,7 +292,7 @@ public class GameWindowController {
         for (String value : lastValues) {
             message.append(value).append(" ");
         }
-        textFieldLastValues.setText("Last 5 Numbers: "+ message);
+        textFieldLastValues.setText("Last Numbers Typing: "+ message);
     }
 
     /**
