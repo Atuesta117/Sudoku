@@ -89,8 +89,6 @@ public class SudokuMainMenuController {
      */
     @FXML
     void handleExitButton(ActionEvent event) {
-        //This line close the app entirely
         System.exit(0);
     }
-
 }
