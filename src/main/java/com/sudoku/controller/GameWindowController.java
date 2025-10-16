@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -25,31 +26,76 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Controller class for the Sudoku game window.
+ * <p>
+ * This class handles all the logic for managing user input, validating Sudoku rules,
+ * interacting with the Board model, updating the UI, and managing navigation between
+ * different sections of the application.
+ * </p>
+ */
 public class GameWindowController {
     Board board = new Board();
     private boolean victoryShown = false;
 
+
+    /** The main Sudoku board model instance. */
+    private Board board = new Board();
+
+    /** Helper class used to generate Sudoku hints. */
     private Helper helper = new Helper(board);
 
+    /** GridPane representing the Sudoku layout in the FXML view. */
     @FXML
-    GridPane sudokuGrid;
+    private GridPane sudokuGrid;
 
+    /** 2D array for easier access to Sudoku TextFields by row and column. */
     private TextField[][] textFields = new TextField[6][6];
+
+    /** Queue storing the last six entered values by the player. */
     private Queue<String> lastValues = new LinkedList<>();
 
+    /** Label used to display the last values entered by the user. */
+    @FXML
+    private Label textFieldLastValues;
+
+    /** Button to go back to the main menu. */
+    @FXML
+    private Button buttonBack;
+
+    /** Button to close the current game window. */
+    @FXML
+    private Button buttonClose;
+
+    /** Button to trigger the help (hint) feature. */
+    @FXML
+    private Button help;
+
+    /**
+     * Initializes the game window and configures all TextFields inside the Sudoku grid.
+     * <p>
+     * This method sets input filters, initializes the grid with board values,
+     * handles navigation with arrow keys, and listens to text changes to trigger validation.
+     * </p>
+     */
     @FXML
     private void initialize() {
+
         for (Node node : sudokuGrid.getChildren()) {
             if (node instanceof TextField) {
                 TextField tf = (TextField) node;
                 Integer row = GridPane.getRowIndex(tf);
                 Integer col = GridPane.getColumnIndex(tf);
                 textFields[row][col] = tf;
+
                 ignoreInvalidInputs(tf);
                 setEmptyTextFields(tf);
                 setirrenewableValues(tf);
 
                 // we listen the changer
+                setiIrrenewableValues(tf);
+
+                // Listen for text changes in each field
                 tf.textProperty().addListener((obs, oldVal, newVal) -> {
                     board.setNodeValue(tf.getId(), newVal.isEmpty() ? " " : newVal);
 
@@ -66,6 +112,15 @@ public class GameWindowController {
                             Platform.runLater(() -> {
                                 try {
                                     System.out.println("Intentando abrir ventana de victoria...");
+
+                    // Only accept digits 1–6
+                    if (!newVal.matches("[1-6]")) {
+                        tf.setText("");
+                        return;
+                    }
+
+                    // Revalidate all cells
+                    validateAllTextFields();
 
                                     // Cargar la ventana de victoria
                                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/sudoku/VictoryWindow.fxml"));
@@ -90,28 +145,51 @@ public class GameWindowController {
                             });
                         }
                     }
+                    // Add to recent values history if valid
+                    if (!newVal.isEmpty()) {
+                        addValueToList(newVal);
+                    }
                 });
 
                 tf.addEventFilter(KeyEvent.KEY_PRESSED, e -> handleArrowNavigation(e, row, col));
             }
         }
+
+        // Final validation on startup
+        validateAllTextFields();
+
+        if(board.isSudokuCompleteAndValid()){
+            System.out.println("ganaste un pene");
+        }
     }
+
+    /**
+     * Fills TextFields with values from the board. If a node is empty (" "), it sets it as blank.
+     *
+     * @param tf the TextField to update
+     */
     private void setEmptyTextFields(TextField tf) {
         tf.setText(board.getValueNode(tf.getId()).equals(" ") ? "" : board.getValueNode(tf.getId()));
     }
+
+    /**
+     * Validates all TextFields in the Sudoku grid, coloring them red if the value violates Sudoku rules.
+     * <p>
+     * Cells that are empty or valid are restored to a neutral visual style.
+     * </p>
+     */
     private void validateAllTextFields() {
         for (Node node : sudokuGrid.getChildren()) {
-            if (node instanceof TextField) {
-                TextField tf = (TextField) node;
+            if (node instanceof TextField tf) {
                 String value = tf.getText();
 
                 if (value.isEmpty()) {
-                    tf.setStyle("");
+                    tf.setStyle("-fx-background-color: transparent; -fx-text-fill: #dcdcdc;");
                     continue;
                 }
 
                 if (board.validateInput(tf.getId())) {
-                    tf.setStyle("-fx-background-color: transparent;");
+                    tf.setStyle("-fx-background-color: transparent; -fx-text-fill: #dcdcdc;");
                 } else {
                     tf.setStyle("-fx-text-fill: red; -fx-border-width: 2px;");
                 }
@@ -119,26 +197,39 @@ public class GameWindowController {
         }
     }
 
-
-    private void setirrenewableValues(TextField tf) {
-        if(board.getNode(tf.getId()).getIsInitialValue()){
+    /**
+     * Makes TextFields representing initial Sudoku values uneditable.
+     *
+     * @param tf the TextField to configure
+     */
+    private void setiIrrenewableValues(TextField tf) {
+        if (board.getNode(tf.getId()).getIsInitialValue()) {
             tf.setEditable(false);
         }
     }
 
+    /**
+     * Restricts TextField input to numbers 1 through 6 only.
+     *
+     * @param tf the TextField to attach the filter to
+     */
     private void ignoreInvalidInputs(TextField tf) {
-        tf.addEventFilter(KeyEvent.KEY_TYPED, event -> {
-            String character = event.getCharacter();
-
-            // ignore other thins different to 1 to 6
-            if (!character.matches("[1-6]") || character.isEmpty()) {
-                event.consume(); //prevents the key from being processed
-
+        tf.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("[1-6]?")) {
+                return change;
             }
-        });
-
+            return null;
+        }));
     }
 
+    /**
+     * Handles arrow key navigation across Sudoku cells.
+     *
+     * @param e   the KeyEvent triggered by an arrow key
+     * @param row the current row of the focused cell
+     * @param col the current column of the focused cell
+     */
     private void handleArrowNavigation(KeyEvent e, int row, int col) {
         switch (e.getCode()) {
             case RIGHT -> moveFocus(row, col + 1);
@@ -148,6 +239,12 @@ public class GameWindowController {
         }
     }
 
+    /**
+     * Moves the focus to another cell in the Sudoku grid.
+     *
+     * @param newRow the target row index
+     * @param newCol the target column index
+     */
     private void moveFocus(int newRow, int newCol) {
         if (newRow >= 0 && newRow < 6 && newCol >= 0 && newCol < 6) {
             TextField next = textFields[newRow][newCol];
@@ -160,6 +257,14 @@ public class GameWindowController {
         }
     }
 
+    /**
+     * Recursively skips non-editable cells during navigation.
+     *
+     * @param row      the current row index
+     * @param col      the current column index
+     * @param deltaRow the row step
+     * @param deltaCol the column step
+     */
     private void moveFocusRecursively(int row, int col, int deltaRow, int deltaCol) {
         // Movimiento recursivo para saltar celdas bloqueadas
         if (row < 0 || row >= 6 || col < 0 || col >= 6) return;
@@ -169,84 +274,100 @@ public class GameWindowController {
         }
     }
 
-
+    /**
+     * Adds a value to the queue of recently entered numbers and updates the display label.
+     *
+     * @param value the number entered by the user
+     */
     private void addValueToList(String value) {
-
         lastValues.add(value);
-        if(lastValues.size() > 6 ){
+        if (lastValues.size() > 6) {
             lastValues.poll();
         }
         showLastValues();
-
     }
-    @FXML
-    private Label textFieldLastValues;
 
-
-    void showLastValues(){
+    /**
+     * Displays the last entered values on the label at the bottom of the UI.
+     */
+    void showLastValues() {
         StringBuilder message = new StringBuilder();
-        for(String value : lastValues){
+        for (String value : lastValues) {
             message.append(value).append(" ");
         }
-        textFieldLastValues.setText(message.toString());
+        textFieldLastValues.setText("Last 5 Numbers: "+ message);
     }
 
-    @FXML
-    private Button buttonBack;
+    /**
+     * Handles the "Back" button action — closes the game and reopens the main menu.
+     *
+     * @param event the button click event
+     * @throws IOException if the menu cannot be loaded
+     */
     @FXML
     void backMenu(ActionEvent event) throws IOException {
-        GameWindow.getInstance().close();
-        SudokuMainMenu.getInstance().show();
+        GameWindow.getInstance().closeInstance();
+        SudokuMainMenu.getInstance().showInstance();
     }
 
-    @FXML
-    private Button buttonClose;
-
+    /**
+     * Handles the "Close" button action — closes the current game window.
+     *
+     * @param event the button click event
+     * @throws IOException if the window cannot be closed
+     */
     @FXML
     void closeGame(ActionEvent event) throws IOException {
-        GameWindow.getInstance().close();
+        GameWindow.getInstance().closeInstance();
     }
 
-    @FXML
-    private Button help;
-
+    /**
+     * Handles the "Help" button action — fills a random empty cell with the correct value.
+     * The modified cell is highlighted briefly in gold.
+     *
+     * @param event the button click event
+     */
     @FXML
     void help(ActionEvent event) {
-        String updatedId = helper.getValueHelp(); // devuelve el id del nodo modificado
-
-        printAllNodes(); // refresca los valores en pantalla
-
+        String updatedId = helper.getValueHelp();
+        printAllNodes();
         if (updatedId != null) {
-            highlightHintCell(updatedId); // resalta ese textfield
+            highlightHintCell(updatedId);
         }
     }
 
-
-
-    private void printAllNodes(){
-        for (Node node : sudokuGrid.getChildren()) {
-            if (node instanceof TextField) {
-                TextField tf = (TextField) node;
-                tf.setText(board.getValueNode(tf.getId()));
-            }
-        }
-    }
-    private void highlightHintCell(String nodeId) {
+    /**
+     * Updates all TextFields with their current board values and applies validation colors.
+     */
+    private void printAllNodes() {
         for (Node node : sudokuGrid.getChildren()) {
             if (node instanceof TextField tf) {
-                if (nodeId.equals(tf.getId())) {
-                    tf.setStyle("-fx-background-color: gold; -fx-text-fill: black; -fx-font-weight: bold;");
-
-                    // (Opcional) quitar color después de 2 segundos
-                    PauseTransition pause = new PauseTransition(Duration.seconds(2));
-                    pause.setOnFinished(e -> tf.setStyle(""));
-                    pause.play();
-
-                    break;
+                tf.setText(board.getValueNode(tf.getId()));
+                if (board.validateInput(tf.getId())) {
+                    tf.setStyle("-fx-background-color: transparent;");
+                } else {
+                    tf.setStyle("-fx-text-fill: red;");
                 }
             }
         }
     }
 
-
+    /**
+     * Highlights a specific TextField temporarily to indicate a provided    hint.
+     *
+     * @param nodeId the ID of the cell to highlight, the value of the node of this cell was changed
+     */
+    private void highlightHintCell(String nodeId) {
+        for (Node node : sudokuGrid.getChildren()) {
+            if (node instanceof TextField tf) {
+                if (nodeId.equals(tf.getId())) {
+                    tf.setStyle("-fx-background-color: gold; -fx-text-fill: black; -fx-font-weight: bold;");
+                    PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                    pause.setOnFinished(e -> tf.setStyle(""));
+                    pause.play();
+                    break;
+                }
+            }
+        }
+    }
 }

@@ -178,9 +178,6 @@ public class SudokuGenerator {
         int startRow = blockRow * BOX_ROWS; // 0, 2, 4
         int startCol = blockCol * BOX_COLS; // 0, 3
 
-        System.out.println("Section " + sectionNumber +
-                " → blockRow=" + blockRow + ", blockCol=" + blockCol +
-                " → startRow=" + startRow + ", startCol=" + startCol);
 
         for (int r = startRow; r < startRow + BOX_ROWS && r < SIZE; r++) {
             for (int c = startCol; c < startCol + BOX_COLS && c < SIZE; c++) {
@@ -188,7 +185,6 @@ public class SudokuGenerator {
             }
         }
 
-        System.out.println("Section " + sectionNumber + " contains " + values.size() + " values: " + values);
 
         return values;
     }
