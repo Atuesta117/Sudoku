@@ -24,13 +24,8 @@
                 prefWidth="150.0" prefHeight="45.0"
                 mnemonicParsing="false" styleClass="menu-button" text="Play" />
 
-        <Button fx:id="optionsButton" onAction="#handleOptionsButton"
-                layoutX="915.0" layoutY="560.0"
-                prefWidth="190.0" prefHeight="45.0"
-                mnemonicParsing="false" styleClass="menu-button" text="Options" />
-
         <Button fx:id="exitButton" onAction="#handleExitButton"
-                layoutX="930.0" layoutY="615.0"
+                layoutX="930.0" layoutY="560.0"
                 prefWidth="150.0" prefHeight="45.0"
                 mnemonicParsing="false" styleClass="menu-button" text="Exit" />
     </children>
