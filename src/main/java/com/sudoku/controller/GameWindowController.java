@@ -1,12 +1,18 @@
 package com.sudoku.controller;
 
 import com.sudoku.model.Board;
+import com.sudoku.view.GameWindow;
+import com.sudoku.view.SudokuMainMenu;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -143,4 +149,19 @@ public class GameWindowController {
         textFieldLastValues.setText(message.toString());
     }
 
+    @FXML
+    private Button buttonBack;
+    @FXML
+    void backMenu(ActionEvent event) throws IOException {
+        GameWindow.getInstance().close();
+        SudokuMainMenu.getInstance().show();
+    }
+
+    @FXML
+    private Button buttonClose;
+
+    @FXML
+    void closeGame(ActionEvent event) throws IOException {
+        GameWindow.getInstance().close();
+    }
 }
