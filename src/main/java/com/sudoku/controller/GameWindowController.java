@@ -1,8 +1,10 @@
 package com.sudoku.controller;
 
 import com.sudoku.model.Board;
+import com.sudoku.model.Helper;
 import com.sudoku.view.GameWindow;
 import com.sudoku.view.SudokuMainMenu;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -11,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -18,6 +21,7 @@ import java.util.Queue;
 
 public class GameWindowController {
     Board board = new Board();
+    private Helper helper = new Helper(board);
 
     @FXML
     GridPane sudokuGrid;
@@ -164,4 +168,46 @@ public class GameWindowController {
     void closeGame(ActionEvent event) throws IOException {
         GameWindow.getInstance().close();
     }
+
+    @FXML
+    private Button help;
+
+    @FXML
+    void help(ActionEvent event) {
+        String updatedId = helper.getValueHelp(); // devuelve el id del nodo modificado
+
+        printAllNodes(); // refresca los valores en pantalla
+
+        if (updatedId != null) {
+            highlightHintCell(updatedId); // resalta ese textfield
+        }
+    }
+
+
+
+    private void printAllNodes(){
+        for (Node node : sudokuGrid.getChildren()) {
+            if (node instanceof TextField) {
+                TextField tf = (TextField) node;
+                tf.setText(board.getValueNode(tf.getId()));
+            }
+        }
+    }
+    private void highlightHintCell(String nodeId) {
+        for (Node node : sudokuGrid.getChildren()) {
+            if (node instanceof TextField tf) {
+                if (nodeId.equals(tf.getId())) {
+                    tf.setStyle("-fx-background-color: gold; -fx-text-fill: black; -fx-font-weight: bold;");
+
+                    // (Opcional) quitar color después de 2 segundos
+                    PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                    pause.setOnFinished(e -> tf.setStyle(""));
+                    pause.play();
+
+                    break;
+                }
+            }
+        }
+    }
+
 }

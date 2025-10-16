@@ -33,6 +33,10 @@ public class Board {
 
     /** Root node representing the entire Sudoku board. */
     private Node root;
+    /** Is the sudoku completed*/
+    private final SudokuGenerator generator = new SudokuGenerator();
+    /** Returns the sudokugenerator */
+    public SudokuGenerator getGenerator() {return this.generator;}
 
     /** Returns the root node of the Sudoku board. */
     Node getroot() { return this.root; }
@@ -88,7 +92,7 @@ public class Board {
      * </ul>
      */
     private void fillInitialValues() {
-        SudokuGenerator generator = new SudokuGenerator(); // Generates a complete Sudoku
+         // Generates a complete Sudoku
 
         for (int i = 0; i < root.getChildren().size(); i++) {
             Node section = root.getChildren().get(i);
