@@ -100,6 +100,6 @@
       </Label>
       <Button fx:id="buttonBack" layoutY="644.0" mnemonicParsing="false" onAction="#backMenu" prefHeight="41.0" prefWidth="112.0" styleClass="GameButton" stylesheets="@style.css" text="Back" />
       <Button fx:id="buttonClose" layoutX="1147.0" layoutY="644.0" mnemonicParsing="false" onAction="#closeGame" prefHeight="41.0" prefWidth="112.0" styleClass="GameButton" stylesheets="@style.css" text="Exit" />
-      <Button fx:id="help" layoutX="581.0" layoutY="45.0" mnemonicParsing="false" onAction="#help" text="Button" />
+      <Button fx:id="help" layoutX="575.0" layoutY="644.0" mnemonicParsing="false" onAction="#help" text="Help" styleClass="help-button" stylesheets="@style.css"/>
     </children>
 </Pane>

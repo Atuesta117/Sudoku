@@ -14,9 +14,6 @@ public class SudokuMainMenuController {
     private Button playButton;
 
     @FXML
-    private Button optionsButton;
-
-    @FXML
     private Button exitButton;
 
 
@@ -39,11 +36,6 @@ public class SudokuMainMenuController {
             e.printStackTrace();
             System.err.println("  ");
         }
-    }
-
-    @FXML
-    void handleOptionsButton(ActionEvent event) {
-        System.out.println("Ventana en proceso de creacion...");
     }
 
     @FXML
