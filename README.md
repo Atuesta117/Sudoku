@@ -94,7 +94,7 @@ src/
 ### Execution Steps
 ```bash
 # Clone the repository
-git clone [repository-url]
+git clone https://github.com/Atuesta117/Sudoku
 cd sudoku-game
 
 # Compile with Maven
